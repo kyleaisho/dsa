@@ -24,6 +24,9 @@ class BinaryTreeNode:
         A.parent = None
         A.subtree_update()
     
+    def __repr__(A) -> str:
+        return f"{A.item}"
+    
     def subtree_update(A):
         A.height = 1 + max(height(A.left), height(A.right))
 
@@ -47,15 +50,45 @@ class BinaryTreeNode:
         if A is None or A.item == value:
             return A
         if value <= A.item:
-            return A.left.find(value)
+            return A.left.find(value) if A.left else None
         else:
-            return A.right.find(value)        
+            return A.right.find(value) if A.right else None  
 
     def find_next(A, value):
-        pass
+        if A is None:
+            return None
+        if value == A.item:
+            return A.successor()
+
+        if value < A.item:
+            if A.left:
+                return A.left.find_next(value)
+            else:
+                return A
+        if value > A.item:
+            if A.right:
+                return A.right.find_next(value)
+            else:
+                return A.successor()
+
 
     def find_prev(A, value):
-        pass
+        if A is None:
+            return None
+        if value == A.item:
+            return A.predecessor()
+        
+        if value < A.item:
+            if A.left:
+                return A.left.find_prev(value)
+            else:
+                return A.predecessor()
+        if value > A.item:
+            if A.right:
+                return A.right.find_prev(value)
+            else:
+                return A.predecessor()            
+
 
     def get_min(A):
         return A if A.left is None else A.left.get_min()
@@ -80,5 +113,17 @@ class BinaryTreeNode:
         return parent
         
 
-    def predecessor(A, value):
-        pass
+    def predecessor(A):
+        if A.left:
+            return A.left.get_max()
+        
+        # Walk up the ancestors until there is a left subtree that isn't
+        # the current subtree. Return that parent.
+        parent = A.parent
+        current = A
+        while parent and parent.left == current:
+            current = parent
+            parent = parent.parent
+        
+        return parent
+
