@@ -1,4 +1,4 @@
-from ..bst.node import Node
+from ..binary_tree.node import Node
 
 
 def test_node():
