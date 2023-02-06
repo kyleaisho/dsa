@@ -8,7 +8,7 @@ def test_node():
     assert root.size == 1
 
 
-def test_after_insert():
+def test_size_after_insert():
     root = SizeNode(7)
     insert(root, 12)
 
@@ -20,3 +20,18 @@ def test_after_insert():
     assert root.size == 3
     assert root.left.size == 1
     assert root.right.size == 1
+
+
+def test_skew_after_insert():
+    root = SizeNode(7)
+    insert(root, 12)
+
+    assert root.skew == 1
+    assert root.right.skew == 0
+
+    insert(root, 3)
+    assert root.skew == 0
+
+    insert(root, 4)
+    assert root.skew == -1
+    assert root.left.skew == 1
