@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, Union
 from .size_node import SizeNode as Node
 from .binary_tree_utils import (
     insert as base_insert,
@@ -8,25 +8,25 @@ from .binary_tree_utils import (
 )
 
 
-def build_bst(items) -> Node:
+def build_bst(items, NodeClass=Node):
     if not items:
         return None
-    root = Node(items.pop(0))
+    root = NodeClass(items.pop(0))
 
     for item in items:
-        insert(root, item)
+        insert(root, item, NodeClass)
     return root
 
 
-def update_ancestors(node: Node):
+def update_ancestors(node):
     if node:
         node.update()
         update_ancestors(node.parent)
 
 
-def insert(node: Node, item) -> Node:
-    inserted_node = base_insert(node, item, node_factory(Node))
-    update_ancestors(inserted_node)
+def insert(node, item, NodeClass=Node):
+    inserted_node = base_insert(node, item, NodeClass)
+    inserted_node.update()
     return inserted_node
 
 
@@ -76,3 +76,14 @@ def right_rotate(node: Node) -> Optional[Node]:
     update_ancestors(node.right)
 
     return node
+
+
+def rotate_if_needed(node: Node):
+    if node.skew == 2:
+        if node.right.skew == -1:
+            right_rotate(node.right)
+        left_rotate(node)
+    if node.skew == -2:
+        if node.left.skew == 1:
+            left_rotate(node.left)
+        right_rotate(node)

@@ -8,8 +8,11 @@ class SizeNode(Node):
         self.height = 0
 
     def update(self):
+        from trees.binary_tree.augment_bt_utils import update_ancestors
+
         self.update_size()
         self.update_height()
+        update_ancestors(self.parent)
 
     def update_size(self):
         self.size = 1 + subtree_size(self.left) + subtree_size(self.right)
