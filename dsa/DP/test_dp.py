@@ -1,5 +1,7 @@
-from .binomial_coefficient import binomial_coefficient
-from .fibonacci import fib
+from dsa.DP.binomial_coefficient import binomial_coefficient
+from dsa.DP.fibonacci import fib
+from dsa.DP.sssp import shortest_path
+from dsa.graphs.graph import Graph
 
 
 def test_binomial_coeffient():
@@ -16,3 +18,14 @@ def test_fib():
     assert fib(3) == 2
 
     assert fib(23) == 28657
+
+
+def test_sp():
+    edges = [[1, 2, 1], [1, 3, 3], [2, 4, 3], [3, 4, 1], [2, 3, 1]]
+    graph = Graph(edges, True)
+    adj = graph.get_node(1)
+    assert adj == [2, 3]
+    assert graph.get_inverse_edges(1) == []
+    cost, path = shortest_path(graph, 1, 4)
+    assert cost == 3
+    assert path == [(1, 2), (2, 3), (3, 4)]
