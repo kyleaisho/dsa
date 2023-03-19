@@ -1,4 +1,4 @@
-from trees.binary_tree.augment_bt_utils import insert
+from dsa.trees.binary_tree.augment_bt_utils import insert
 from .size_node import SizeNode
 
 

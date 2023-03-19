@@ -1,8 +1,7 @@
 class Node:
-    def __init__(self, val, weight) -> None:
+    def __init__(self, val) -> None:
         self.val = val
         self.key = val
-        self.weight = weight
         self.adj = []
 
     def __lt__(self, other):

@@ -8,7 +8,11 @@ def build_from_tuple(*args, **kwargs):
 
 def build_weighted(nodes, directed=True):
     graph = {}
+    weights = {}
+    graph["__weights"] = weights
+    import pudb
 
+    pudb.set_trace()
     for edge in nodes:
         node = edge[0]
         neighbor = edge[1]
@@ -16,9 +20,13 @@ def build_weighted(nodes, directed=True):
         if len(edge) > 2:
             weight = edge[2]
         if node not in graph:
-            graph[node] = Node(node, weight)
+            graph[node] = Node(node)
         if neighbor not in graph:
-            graph[neighbor] = Node(neighbor, weight)
+            graph[neighbor] = Node(neighbor)
+        if node not in weights:
+            weights[node] = {}
+
+        weights[node][neighbor] = weight
 
         graph[node].adj.append(neighbor)
 

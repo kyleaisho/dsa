@@ -1,4 +1,4 @@
-from ..binary_tree.node import Node
+from dsa.trees.binary_tree.node import Node
 
 
 def test_node():
