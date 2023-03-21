@@ -108,3 +108,36 @@ def pad_lines(text, width):
                 line.append(" ")
         lines.append("".join(line))
     return lines
+
+
+def justify_recursive(text, width):
+    memo = {}
+    memo[len(text)] = 0
+    child = {}
+    calculate_costs(text, width, 0, memo, child)
+
+    splits = []
+    index = 0
+    while index < len(text):
+        splits.append(child[index])
+        index = child[index]
+
+    unpadded_lines = get_unpadded_lines(text, splits)
+    return pad_lines(unpadded_lines, width)
+
+
+def calculate_costs(text, width, i, memo, child):
+    if i in memo:
+        return memo[i]
+    n = len(text)
+    memo[i] = float("inf")
+    if i not in child:
+        child[i] = None
+    for j in range(i + 1, n + 1):
+        line = text[i:j]
+        cost = badness(line, width)
+        j_cost = calculate_costs(text, width, j, memo, child)
+        if cost + j_cost < memo[i]:
+            memo[i] = cost + memo[j]
+            child[i] = j
+    return memo[i]

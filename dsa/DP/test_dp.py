@@ -4,6 +4,7 @@ from dsa.DP.sssp import shortest_path
 from dsa.graphs.graph import Graph
 from dsa.DP.text_justification import (
     justify,
+    justify_recursive,
     generate_matrix,
     calculate_splits,
     get_unpadded_lines,
@@ -59,3 +60,10 @@ def test_justification():
     assert splits == ans_splits
     assert lines == ans_lines
     assert justify(words, COL_WIDTH) == ans
+
+
+def test_justification_recursive():
+    COL_WIDTH = 10
+    words = ["Xander", "boy", "likes", "to", "code"]
+
+    assert justify(words, COL_WIDTH) == justify_recursive(words, COL_WIDTH)
