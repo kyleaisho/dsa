@@ -9,6 +9,7 @@ from dsa.DP.text_justification import (
     calculate_splits,
     get_unpadded_lines,
 )
+from dsa.DP.edit_distance import edit_distance
 
 
 def test_binomial_coeffient():
@@ -67,3 +68,12 @@ def test_justification_recursive():
     words = ["Xander", "boy", "likes", "to", "code"]
 
     assert justify(words, COL_WIDTH) == justify_recursive(words, COL_WIDTH)
+
+
+def test_edit_distance():
+    word1 = "intention"
+    word2 = "execution"
+    edit_cost = 5
+
+    assert edit_distance(word1, word2) == edit_cost
+    assert edit_distance("zoologicoarchaeologist", "zoogeologist") == 10
