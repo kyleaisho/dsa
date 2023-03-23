@@ -10,6 +10,7 @@ from dsa.DP.text_justification import (
     get_unpadded_lines,
 )
 from dsa.DP.edit_distance import edit_distance
+from dsa.DP.knapsack import fill_knapsack
 
 
 def test_binomial_coeffient():
@@ -77,3 +78,10 @@ def test_edit_distance():
 
     assert edit_distance(word1, word2) == edit_cost
     assert edit_distance("zoologicoarchaeologist", "zoogeologist") == 10
+
+
+def test_knapsack():
+    values, weights = [1, 6, 10, 16], [1, 2, 3, 5]
+
+    assert fill_knapsack(7, values, weights) == 22
+    assert fill_knapsack(6, values, weights) == 17
