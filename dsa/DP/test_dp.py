@@ -11,6 +11,7 @@ from dsa.DP.text_justification import (
 )
 from dsa.DP.edit_distance import edit_distance
 from dsa.DP.knapsack import fill_knapsack
+from dsa.DP.job_scheduling import job_scheduling
 
 
 def test_binomial_coeffient():
@@ -85,3 +86,11 @@ def test_knapsack():
 
     assert fill_knapsack(7, values, weights) == 22
     assert fill_knapsack(6, values, weights) == 17
+
+
+def test_job_scheduling():
+    startTime = [1, 2, 3, 3]
+    endTime = [3, 4, 5, 6]
+    profit = [50, 10, 40, 70]
+
+    assert job_scheduling(startTime, endTime, profit) == 120
