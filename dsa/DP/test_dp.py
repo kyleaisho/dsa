@@ -12,6 +12,7 @@ from dsa.DP.text_justification import (
 from dsa.DP.edit_distance import edit_distance
 from dsa.DP.knapsack import fill_knapsack
 from dsa.DP.job_scheduling import job_scheduling
+from dsa.DP.coin_change import coin_change
 
 
 def test_binomial_coeffient():
@@ -94,3 +95,10 @@ def test_job_scheduling():
     profit = [50, 10, 40, 70]
 
     assert job_scheduling(startTime, endTime, profit) == 120
+
+
+def test_coin_change():
+    coins = [1, 2, 5]
+    amount = 11
+
+    assert coin_change(amount, coins) == 3
